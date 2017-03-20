@@ -1,6 +1,6 @@
 {
   "name": "react-refect-next",
-  "version": "0.1.0-alpha.0",
+  "version": "0.1.0-alpha.1",
   "description": "",
   "main": "lib/index.js",
   "typings": "./index.ts",
@@ -29,7 +29,9 @@
   "files": [
     "src",
     "lib",
-    "*.md"
+    "*.md",
+    "index.ts",
+    "declaration.d.ts"
   ],
   "devDependencies": {
     "@types/react": "^15.0.16",

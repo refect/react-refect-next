@@ -50,6 +50,11 @@ export class BaseTasks<Actions, State, Effects> {
    * @returns 返回对应路径的数据，不存在则返回 undefined
    */
   protected get: Get<State>
+
+  /**
+   * 一般用户 dispatch redux-router action
+   */
+  protected dispatch: (action: any) => any
 }
 
 export class BaseReducer<State> {

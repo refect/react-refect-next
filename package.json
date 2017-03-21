@@ -9,6 +9,7 @@
     "build": "tsc",
     "autofix": "eslint src --fix",
     "lint": "eslint src",
+    "prepublish": "npm run build",
     "demo": "webpack-dev-server  --progress --port 3030  --colors --content-base demo --hot --inline --config demo/webpack.config.js",
     "test": "NODE_ENV=test karma start test/karma.conf.js --single-run"
   },

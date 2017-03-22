@@ -73,16 +73,26 @@ interface Options {
 }
 
 function getActions(inst: any, bindings: any, filters: string[] = [], bindSelf = false) {
-  const methods = Object.getPrototypeOf(inst);
-  const methodNames = Object.getOwnPropertyNames(methods);
+  const babelMethods: any = Object.keys(inst).reduce((res, methodName) => {
+    return {
+      ...res,
+      [methodName]: inst[methodName],
+    };
+  }, {});
+  const babelMethodNames = Object.keys(babelMethods);
+
+  const methods: any = Object.getPrototypeOf(inst);
+  const methodNames = Object.getOwnPropertyNames(methods).concat(babelMethodNames);
   const finalFilters = [...filters, 'constructor'];
 
   const actionMap = methodNames
     .filter(str => finalFilters.indexOf(str) < 0)
     .reduce((result: any, methodName) => {
+      const method = methods[methodName] || babelMethods[methodName];
+
       return {
         ...result,
-        [methodName]: methods[methodName].bind(bindings),
+        [methodName]: method.bind(bindings),
       };
     }, {});
 

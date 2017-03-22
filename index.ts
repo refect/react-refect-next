@@ -1,3 +1,5 @@
+/// <reference path="./declaration.d.ts" />
+
 import refect, { refectLocal as reactRefectLocal } from 'react-refect';
 
 interface Store {

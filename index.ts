@@ -52,9 +52,19 @@ export class BaseTasks<Actions, State, Effects> {
   protected get: Get<State>
 
   /**
-   * 一般用户 dispatch redux-router action
+   * 一般用来 dispatch redux-router action
    */
   protected dispatch: (action: any) => any
+
+  /**
+   * 用来 dispatch 自己的 action，如： put('child1.fetchData')
+   */
+  protected put: (pattern: string, ...rest: any[]) => any
+
+  /**
+   * dispatch 一个 task action，并返回 task 执行结果
+   */
+  protected done: (action: any, ...rest: any[]) => any
 }
 
 export class BaseReducer<State> {

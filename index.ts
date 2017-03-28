@@ -1,6 +1,4 @@
-/// <reference path="./declaration.d.ts" />
-
-import refect, { refectLocal as reactRefectLocal } from 'react-refect';
+import refect, { refectRoot as reactRefectRoot } from 'react-refect';
 
 interface Store {
   dispatch: (action: any) => any
@@ -129,12 +127,12 @@ function parseOptions(options: Options) {
   } : undefined;
 
   const effects = Effects.map((Effect: { new(): any }) => {
-    const plugin = new Effect();
-    const PutinReducer = plugin.putinReducer;
+    const effector = new Effect();
+    const PutinReducer = effector.putinReducer;
 
     return {
       putinReducer: parseReducer(PutinReducer),
-      plugin: parseEffect(Effect),
+      effector: parseEffect(Effect),
     };
   }, {});
 
@@ -154,8 +152,8 @@ export default function refectNext(options: Options) {
   return refect(parsedOptions);
 } 
 
-export function refectLocal(options: Options) {
+export function refectRoot(options: Options) {
   const parsedOptions = parseOptions(options);
 
-  return reactRefectLocal(parsedOptions);
+  return reactRefectRoot(parsedOptions);
 }

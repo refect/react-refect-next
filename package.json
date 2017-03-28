@@ -1,6 +1,6 @@
 {
   "name": "react-refect-next",
-  "version": "0.1.0-alpha.5",
+  "version": "0.1.0-alpha.6",
   "description": "",
   "main": "lib/index.js",
   "typings": "./index.ts",
@@ -25,7 +25,7 @@
   "author": "DT",
   "license": "MIT",
   "dependencies": {
-    "react-refect": "^0.1.0-alpha.3"
+    "react-refect": "^0.1.0-alpha.4"
   },
   "files": [
     "src",

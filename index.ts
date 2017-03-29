@@ -1,4 +1,4 @@
-import refect, { refectRoot as reactRefectRoot } from 'react-refect';
+import refect from 'react-refect';
 
 interface Store {
   dispatch: (action: any) => any
@@ -160,10 +160,4 @@ export default function refectNext(options: Options) {
   const parsedOptions = parseOptions(options);
 
   return refect(parsedOptions);
-} 
-
-export function refectRoot(options: Options) {
-  const parsedOptions = parseOptions(options);
-
-  return reactRefectRoot(parsedOptions);
 }

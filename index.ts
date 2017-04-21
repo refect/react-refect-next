@@ -75,6 +75,7 @@ interface Options {
   Reducer?: ({ new(): BaseReducer<any> })
   Tasks?: ({ new(): BaseTasks<any, any, any> })
   State?: ({ new(): any })
+  mapStateToProps?: (storeState?: any, props?: any, storeAllState?: any) => any;
   Effects?: BaseEffect<any>[]
   defaultNamespace: string
   View: any

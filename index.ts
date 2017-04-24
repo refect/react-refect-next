@@ -127,7 +127,7 @@ function parseEffect(Effect: any) {
 }
 
 function parseOptions(options: Options) {
-  const { Reducer, Tasks, State, Effects = [], defaultNamespace, View } = options;
+  const { Reducer, Tasks, State, Effects = [], View } = options;
 
   const reducer = parseReducer(Reducer);
 
@@ -148,9 +148,9 @@ function parseOptions(options: Options) {
   }, {});
 
   return {
+    ...options,
     reducer,
     tasks,
-    defaultNamespace,
     initialState: new State(),
     effects,
     view: View,

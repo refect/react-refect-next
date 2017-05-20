@@ -78,6 +78,7 @@ interface Options {
   mapStateToProps?: (storeState?: any, props?: any, storeAllState?: any) => any;
   Effects?: BaseEffect<any>[]
   defaultNamespace: string
+  defaultProps: any
   View: any
 }
 

@@ -1,4 +1,5 @@
-import refect, { BaseReducer, BaseTasks, refectLocal } from '../../';
+import refect, { BaseReducer, BaseTasks } from '../../';
+import { refectRoot } from 'react-refect';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
@@ -46,7 +47,7 @@ class View extends React.Component<Props, any> {
   }
 }
 
-const Picker = refectLocal({
+const Picker = refect({
   Reducer,
   Tasks,
   State,
@@ -54,4 +55,9 @@ const Picker = refectLocal({
   View,
 });
 
-ReactDOM.render(<Picker />, document.getElementById('app'));
+const Root = refectRoot();
+
+ReactDOM.render(
+  <Root>
+    <Picker />
+  </Root>, document.getElementById('app'));

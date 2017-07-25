@@ -1,7 +1,70 @@
-import refect, { BaseReducer, BaseTasks, refectLocal } from '../../index.ts';
-import FetchEffect, { FetchEffectReducer } from './fetchEffect.ts';
+import refect, { BaseReducer, BaseTasks, BaseEffect } from '../../';
 import * as React from 'react';
+import { refectRoot } from 'react-refect';
 import * as ReactDOM from 'react-dom';
+
+class FetchEffectReducer extends BaseReducer<any> {
+  onFetchPending(field?: string, url?: string, options?: any) {
+    return {
+      ...this.state,
+      [field]: {
+        ...(this.state[field] || {}),
+        isLoading: true,
+        hasError: false,
+      },
+    };
+  }
+  onFetchFulfilled(field?: string, data?: any, url?: string, options?: any) {
+    return {
+      ...this.state,
+      [field]: {
+        ...(this.state[field] || {}),
+        isLoading: false,
+        hasError: false,
+        data,
+      },
+    };
+  }
+  onFetchRejected(field?: string, err?: any, url?: string, options?: any) {
+    return {
+      ...this.state,
+      [field]: {
+        ...(this.state[field] || {}),
+        isLoading: false,
+        hasError: true,
+        message: err.message,
+      },
+    };
+  }
+}
+
+class FetchEffect extends BaseEffect<FetchEffectReducer> {
+  protected putinReducer = FetchEffectReducer
+
+  fetch(url: string, options: any, field: string, meta: any) {
+    const actions = this.getActions();
+    const dispatch = this.getStore().dispatch;
+
+    dispatch(actions.onFetchPending(field, url, options));
+
+    return new Promise<any>((resolve, reject) => {
+      fetch(url, options)
+        .then(res => res.json())
+        .then((data: any) => {
+          if (data && data.message) {
+            dispatch(actions.onFetchRejected(field, data.message, url, options));
+            reject(data.message);
+          } else {
+            dispatch(actions.onFetchFulfilled(field, data, url, options));
+            resolve(data);
+          }
+        }, err => {
+          dispatch(actions.onFetchRejected(field, err, url, options));
+          reject(err);
+        });
+    });
+  }
+}
 
 class State {
   user = {
@@ -79,13 +142,18 @@ class View extends React.Component<Props, any> {
   }
 }
 
-const Picker = refectLocal({
+const Picker = refect({
   Reducer,
   Tasks,
   State,
   defaultNamespace: 'picker',
   View,
-  Effects: [FetchEffect],
+  Effects: [FetchEffect]
 });
 
-ReactDOM.render(<Picker title="搜索啊搜索" />, document.getElementById('app'));
+const Root = refectRoot();
+
+ReactDOM.render(
+  <Root>
+    <Picker title="搜索啊搜索" />
+  </Root>, document.getElementById('app'));

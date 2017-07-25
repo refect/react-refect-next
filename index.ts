@@ -76,7 +76,7 @@ interface Options {
   Tasks?: ({ new(): BaseTasks<any, any, any> })
   State?: ({ new(): any })
   mapStateToProps?: (storeState?: any, props?: any, storeAllState?: any) => any;
-  Effects?: BaseEffect<any>[]
+  Effects?: any[]
   defaultNamespace: string
   defaultProps?: any
   View: any

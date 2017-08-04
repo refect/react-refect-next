@@ -16,16 +16,16 @@ interface Get<State> {
   /**
    * 获取整个组件的数据
    */
-  () : State
+  (): State
 
   /**
    * 获取当前组件的数据。
-   * 
+   *
    * @param path 数据路径，支持数组，如：a.b、2.1、a.1
-   * 
+   *
    * @returns 返回对应路径的数据，不存在则返回 undefined
    */
-  (path: string | number) : any
+  (path: string | number): any
 }
 
 export class BaseTasks<Actions, State, Effects> {
@@ -34,19 +34,19 @@ export class BaseTasks<Actions, State, Effects> {
 
   /**
    * 监听一个 action
-   * 
+   *
    * @param pattern 可以是数组、字符串、函数、action、可以引用深层级，如 watch('counter.changeNum')
-   * 
+   *
    * @param callback 监听回调。参数为 rest 加上被监听 action 的参数
-   * 
+   *
    */
   protected watch: (pattern: any, callback: any, ...rest: any[]) => any
 
   /**
    * 获取当前组件的数据。当没有参数时，获取整个组件的数据。
-   * 
+   *
    * @param path 数据路径，支持数组，如：a.b、2.1、a.1
-   * 
+   *
    * @returns 返回对应路径的数据，不存在则返回 undefined
    */
   protected get: Get<State>
@@ -132,7 +132,7 @@ function parseOptions(options: Options) {
 
   const reducer = parseReducer(Reducer);
 
-  const tasks = Tasks ? (actions: any, effects: any, coreEffects : any = {}, plugins: any = {}) => {
+  const tasks = Tasks ? (actions: any, effects: any, coreEffects: any = {}, plugins: any = {}) => {
     const filters = Object.keys(coreEffects).concat(['plugins', 'actions']);
 
     return getActions(new Tasks(), { ...coreEffects, actions, effects: plugins }, filters, true);
@@ -158,8 +158,8 @@ function parseOptions(options: Options) {
   };
 }
 
-export default function refectNext(options: Options) {
+export default function refectNext<T>(options: Options) {
   const parsedOptions = parseOptions(options);
 
-  return refect(parsedOptions);
+  return refect<T>(parsedOptions);
 }

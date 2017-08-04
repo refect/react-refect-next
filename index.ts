@@ -158,7 +158,7 @@ function parseOptions(options: Options) {
   };
 }
 
-export default function refectNext<T>(options: Options) {
+export default function refectNext<T = {}>(options: Options) {
   const parsedOptions = parseOptions(options);
 
   return refect<T>(parsedOptions);

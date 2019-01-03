@@ -149,7 +149,7 @@ const Picker = refect({
   defaultNamespace: 'picker',
   View,
   Effects: [FetchEffect]
-});
+}) as any;
 
 const Root = refectRoot();
 
